@@ -18,8 +18,11 @@ public:
 	virtual void render(sf::RenderTarget* renderTarget);
 	virtual void gotoTile(const sfld::Vector2i& tilePosition);
 	virtual void move(double frameTime);
+	void setPositionFromTile(sfld::Vector2i tilePos);
+	void changeLevel();
 	sfld::Vector2f getCentre() const;
 	virtual bool isDestroyed() const;
+	SURFACE_LEVEL getSurfaceLevel() const;
 protected:
 	bool toremove_;
 	int radius_; //EVERYTHING IS A CIRCLE!?

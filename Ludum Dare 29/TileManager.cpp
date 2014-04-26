@@ -2,6 +2,28 @@
 #include "TileManager.h"
 #include "Entity.h"
 
+TileManager::TileManager() : currentSurface_(Entity::ABOVE_GROUND){
+
+}
+
+void TileManager::changeEntityLevel(Entity* entity){
+	Entity::SURFACE_LEVEL entSurface = entity->getSurfaceLevel();
+	EntityPtrList& list = (entSurface == Entity::ABOVE_GROUND ? aboveGround_ : belowGround_);
+	EntityPtrList& other = (entSurface == Entity::ABOVE_GROUND ? belowGround_ : aboveGround_);
+	for (auto& it = list.begin(); it != list.end(); it++){
+		if (it->get() == entity){
+			Entity* e = it->release();
+			other.push_back(std::unique_ptr<Entity>(e));
+			list.erase(it);
+			break;
+		}
+	}
+}
+
+void TileManager::changeLevel(){
+	currentSurface_ = (currentSurface_ == Entity::ABOVE_GROUND ? Entity::BELOW_GROUND : Entity::ABOVE_GROUND);
+}
+
 void TileManager::add(Entity* entity, Entity::SURFACE_LEVEL surfaceLevel){
 	EntityPtrList& list = (surfaceLevel == Entity::ABOVE_GROUND ? aboveGround_ : belowGround_);
 	list.push_back(std::unique_ptr<Entity>(entity));
@@ -42,10 +64,10 @@ void TileManager::renderAll(sf::RenderTarget* renderTarget){
 }
 
 EntityPtrList& TileManager::getRelevantEntities(Entity::SURFACE_LEVEL surfaceLevel){
-	if (currentSurface_ == Entity::ABOVE_GROUND){
+	if (surfaceLevel == Entity::ABOVE_GROUND){
 		return aboveGround_;
 	}
-	else if (currentSurface_ == Entity::BELOW_GROUND){
+	else if (surfaceLevel == Entity::BELOW_GROUND){
 		return belowGround_;
 	}
 	assert("currentSurface is not a proper value!");

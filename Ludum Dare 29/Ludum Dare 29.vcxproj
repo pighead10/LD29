@@ -16,6 +16,7 @@
     <ClInclude Include="forwards.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RandomAi.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SFLD.h" />
     <ClInclude Include="StateManager.h" />
@@ -29,6 +30,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RandomAi.cpp" />
     <ClCompile Include="SFLD.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -14,6 +14,11 @@ void Entity::render(sf::RenderTarget* renderTarget){
 	renderTarget->draw(*sprite_.get());
 }
 
+void Entity::setPositionFromTile(sfld::Vector2i tilePos){
+	setTilePosition(tilePos);
+	setRealPosition(sfld::Vector2f(tilePos.x*TILE_SIZE, tilePos.y*TILE_SIZE));
+}
+
 void Entity::gotoTile(const sfld::Vector2i& tilePosition){
 	targetTile_ = tilePosition;
 }
@@ -34,12 +39,23 @@ void Entity::setRealPosition(const sfld::Vector2f position){
 	sprite_->setPosition(position);
 }
 
+void Entity::changeLevel(){
+	parent_->changeEntityLevel(this);
+	level_ = (level_ == ABOVE_GROUND ? BELOW_GROUND : ABOVE_GROUND);
+}
+
+Entity::SURFACE_LEVEL Entity::getSurfaceLevel() const{
+	return level_;
+}
+
 std::vector<Entity*> Entity::getCollisions(){
 	EntityPtrList& entities = parent_->getRelevantEntities(level_);
 	std::vector<Entity*> collisions;
 	for (auto& it : entities){
-		if (sfld::Vector2f(it->getRealPosition() - getRealPosition()).length() <= it->radius_){
-			collisions.push_back(it.get());
+		if (it.get() != this){
+			if (sfld::Vector2f(it->getCentre() - getCentre()).length() <= it->radius_*2-5){
+				collisions.push_back(it.get());
+			}
 		}
 	}
 	return collisions;
