@@ -26,6 +26,7 @@ void GameState::start(){
 	resourceManager_.load("test", "test.png");
 	tileManager_ = std::unique_ptr<TileManager>(new TileManager());
 	tileManager_->add(new Player(tileManager_.get(),new sf::Sprite(resourceManager_.get("test"))), Entity::ABOVE_GROUND);
+	//TESTING GIT!
 }
 
 void GameState::pause(){
