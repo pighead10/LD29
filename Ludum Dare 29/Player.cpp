@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "TileManager.h"
+#include "Hole.h"
 
 Player::Player(TileManager* tileManager,sf::Sprite* sprite,ResourceManager<sf::Texture,std::string>* resourceManager):resourceManager_(resourceManager){
 	toremove_ = false;
@@ -13,6 +14,20 @@ Player::Player(TileManager* tileManager,sf::Sprite* sprite,ResourceManager<sf::T
 	collided = false;
 	radius_ = 16;
 	layerTimer_ = 0;
+	type_ = ENTITY_PLAYER;
+	haswep = false;
+}
+
+void Player::render(sf::RenderTarget* target){
+	target->draw(*sprite_.get());
+	if (haswep){
+		weapon_->render(target);
+	}
+}
+
+void Player::changeWeapon(Weapon* weapon){
+	haswep = true;
+	weapon_ = std::unique_ptr<Weapon>(weapon);
 }
 
 void Player::update(double frameTime){
@@ -40,8 +55,10 @@ void Player::update(double frameTime){
 
 	if (Keyboard::isKeyPressed(Keyboard::Space)){
 		if (layerTimer_ > 2000){
-			changeLevel();
-			parent_->changeLevel();
+			scheduleLevelChange();
+			if (level_ == ABOVE_GROUND){
+				parent_->scheduleEntityAdd(new Hole(resourceManager_, getTilePosition(), parent_),level_);
+			}
 			layerTimer_ = 0;
 		}
 	}
@@ -60,5 +77,8 @@ void Player::update(double frameTime){
 			ctimer = 0;
 			collided = false;
 		}
+	}
+	if (haswep){
+		weapon_->update(frameTime);
 	}
 }

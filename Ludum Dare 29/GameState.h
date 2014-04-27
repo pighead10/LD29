@@ -2,6 +2,7 @@
 
 #include "BaseState.h"
 #include "ResourceManager.h"
+#include "SpinSlashWeapon.h"
 
 class TileManager;
 
@@ -19,6 +20,8 @@ public:
 	void update(int frameTime);
 	void render(sf::RenderTarget* target);
 private:
+	std::unique_ptr<SpinSlashWeapon> spinWep;
+
 	std::unique_ptr<TileManager> tileManager_;
 	ResourceManager<sf::Texture,std::string> resourceManager_;
 };

@@ -6,6 +6,10 @@ void Entity::update(double frameTime){
 
 }
 
+Entity::ENTITY_TYPE Entity::getType() const{
+	return type_;
+}
+
 sfld::Vector2f Entity::getCentre() const{
 	return sprite_->getPosition() + sf::Vector2f(TILE_SIZE / 2, TILE_SIZE / 2);
 }
@@ -17,6 +21,9 @@ void Entity::render(sf::RenderTarget* renderTarget){
 void Entity::setPositionFromTile(sfld::Vector2i tilePos){
 	setTilePosition(tilePos);
 	setRealPosition(sfld::Vector2f(tilePos.x*TILE_SIZE, tilePos.y*TILE_SIZE));
+}
+
+void Entity::changeWeapon(Weapon* weapon){
 }
 
 void Entity::gotoTile(const sfld::Vector2i& tilePosition){
@@ -31,17 +38,35 @@ void Entity::setTilePosition(const sfld::Vector2i& tilePosition){
 	tilePosition_ = tilePosition;
 }
 
+void Entity::checkStatus(){
+	if (health_ <= 0){
+		toremove_ = true;
+	}
+}
+
 sfld::Vector2f Entity::getRealPosition() const{
 	return sprite_->getPosition();
+}
+
+void Entity::changeHealth(int amount){
+	health_ += amount;
+}
+
+sfld::Vector2i Entity::getTilePosition() const{
+	return tilePosition_;
 }
 
 void Entity::setRealPosition(const sfld::Vector2f position){
 	sprite_->setPosition(position);
 }
 
-void Entity::changeLevel(){
-	parent_->changeEntityLevel(this);
+void Entity::levelChange(){
 	level_ = (level_ == ABOVE_GROUND ? BELOW_GROUND : ABOVE_GROUND);
+}
+
+void Entity::scheduleLevelChange(){
+	parent_->scheduleEntityLevelChange(this);
+	
 }
 
 Entity::SURFACE_LEVEL Entity::getSurfaceLevel() const{

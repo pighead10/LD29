@@ -6,6 +6,10 @@ TileManager::TileManager() : currentSurface_(Entity::ABOVE_GROUND){
 
 }
 
+void TileManager::scheduleEntityLevelChange(Entity* entity){
+	entitiesToChange_.push_back(entity);
+}
+
 void TileManager::changeEntityLevel(Entity* entity){
 	Entity::SURFACE_LEVEL entSurface = entity->getSurfaceLevel();
 	EntityPtrList& list = (entSurface == Entity::ABOVE_GROUND ? aboveGround_ : belowGround_);
@@ -22,6 +26,10 @@ void TileManager::changeEntityLevel(Entity* entity){
 
 void TileManager::changeLevel(){
 	currentSurface_ = (currentSurface_ == Entity::ABOVE_GROUND ? Entity::BELOW_GROUND : Entity::ABOVE_GROUND);
+}
+
+void TileManager::scheduleEntityAdd(Entity* entity, Entity::SURFACE_LEVEL surfaceLevel){
+	entitiesToAdd_.push_back(std::make_pair(entity, surfaceLevel));
 }
 
 void TileManager::add(Entity* entity, Entity::SURFACE_LEVEL surfaceLevel){
@@ -48,6 +56,19 @@ void TileManager::updateAll(double frameTime){
 			it++;
 		}
 	}
+	for (auto& it : entitiesToChange_){
+		changeEntityLevel(it);
+		it->levelChange();
+		if (it->getType() == Entity::ENTITY_PLAYER){
+			changeLevel();
+		}
+	}
+	entitiesToChange_.clear();
+
+	for (auto& it : entitiesToAdd_){
+		add(it.first, it.second);
+	}
+	entitiesToAdd_.clear();
 }
 
 void TileManager::renderAll(sf::RenderTarget* renderTarget){
@@ -61,6 +82,16 @@ void TileManager::renderAll(sf::RenderTarget* renderTarget){
 			it->render(renderTarget);
 		}
 	}
+}
+
+Entity* TileManager::getPlayer(Entity::SURFACE_LEVEL surfaceLevel){
+	EntityPtrList& list = (surfaceLevel == Entity::ABOVE_GROUND ? aboveGround_ : belowGround_);
+	for (auto& it : list){
+		if (it->getType() == Entity::ENTITY_PLAYER){
+			return it.get();
+		}
+	}
+	return NULL;
 }
 
 EntityPtrList& TileManager::getRelevantEntities(Entity::SURFACE_LEVEL surfaceLevel){

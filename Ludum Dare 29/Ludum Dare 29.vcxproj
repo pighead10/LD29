@@ -14,24 +14,31 @@
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="forwards.h" />
+    <ClInclude Include="Hole.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RandomAi.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SFLD.h" />
+    <ClInclude Include="SpinSlashWeapon.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="TileManager.h" />
+    <ClInclude Include="UpwardsStabWeapon.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponGiver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Hole.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RandomAi.cpp" />
     <ClCompile Include="SFLD.cpp" />
+    <ClCompile Include="SpinSlashWeapon.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -39,6 +46,7 @@
     </ClCompile>
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="TileManager.cpp" />
+    <ClCompile Include="WeaponGiver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ResourceManager.inl" />

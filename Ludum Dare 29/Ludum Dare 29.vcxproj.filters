@@ -54,6 +54,21 @@
     <ClInclude Include="RandomAi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinSlashWeapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponGiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UpwardsStabWeapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,10 +95,19 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="RandomAi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinSlashWeapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponGiver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
