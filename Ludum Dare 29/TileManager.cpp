@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "TileManager.h"
 #include "Entity.h"
+#include "ResourceManager.h"
 
-TileManager::TileManager() : currentSurface_(Entity::ABOVE_GROUND){
-
+TileManager::TileManager(ResourceManager<sf::Texture, std::string>* resourceManager) 
+: currentSurface_(Entity::ABOVE_GROUND),resourceManager_(resourceManager){
+	grassbg = std::unique_ptr<sf::Sprite>(new sf::Sprite(resourceManager_->get("grassbg")));
+	stonebg = std::unique_ptr<sf::Sprite>(new sf::Sprite(resourceManager_->get("stonebg")));
 }
 
 void TileManager::scheduleEntityLevelChange(Entity* entity){
@@ -73,11 +76,13 @@ void TileManager::updateAll(double frameTime){
 
 void TileManager::renderAll(sf::RenderTarget* renderTarget){
 	if (currentSurface_ == Entity::ABOVE_GROUND){
+		renderTarget->draw(*grassbg.get());
 		for (auto& it : aboveGround_){
 			it->render(renderTarget);
 		}
 	}
 	else if (currentSurface_ == Entity::BELOW_GROUND){
+		renderTarget->draw(*stonebg.get());
 		for (auto& it : belowGround_){
 			it->render(renderTarget);
 		}

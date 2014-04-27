@@ -9,7 +9,7 @@ class Weapon;
 
 class Player : public Entity{
 public:
-	explicit Player(TileManager* tileManager,sf::Sprite* sprite,ResourceManager<sf::Texture,std::string>* resourceManager);
+	Player(TileManager* tileManager,sf::Sprite* sprite,ResourceManager<sf::Texture,std::string>* resourceManager);
 	void update(double frameTime);
 	void changeWeapon(Weapon* weapon);
 	void render(sf::RenderTarget* target);

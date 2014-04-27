@@ -21,6 +21,8 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="SFLD.h" />
     <ClInclude Include="SpinSlashWeapon.h" />
+    <ClInclude Include="Spring.h" />
+    <ClInclude Include="SpringPlacerWeapon.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="GameState.h" />
@@ -39,6 +41,8 @@
     <ClCompile Include="RandomAi.cpp" />
     <ClCompile Include="SFLD.cpp" />
     <ClCompile Include="SpinSlashWeapon.cpp" />
+    <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="SpringPlacerWeapon.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -46,6 +50,7 @@
     </ClCompile>
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="TileManager.cpp" />
+    <ClCompile Include="UpwardsStabWeapon.cpp" />
     <ClCompile Include="WeaponGiver.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -8,10 +8,11 @@
 
 #include "Entity.h"
 #include "forwards.h"
+#include "ResourceManager.h"
 
 class TileManager{
 public:
-	TileManager();
+	TileManager(ResourceManager<sf::Texture,std::string>* resourceManager);
 	void updateAll(double frameTime);
 	void renderAll(sf::RenderTarget* renderTarget);
 	EntityPtrList& getRelevantEntities(Entity::SURFACE_LEVEL surfaceLevel);
@@ -20,6 +21,10 @@ public:
 	void scheduleEntityLevelChange(Entity* entity);
 	Entity* getPlayer(Entity::SURFACE_LEVEL);
 private:
+	std::unique_ptr<sf::Sprite> grassbg;
+	std::unique_ptr<sf::Sprite> stonebg;
+	ResourceManager<sf::Texture, std::string>* resourceManager_;
+
 	void add(Entity* entity, Entity::SURFACE_LEVEL surfaceLevel);
 	void changeEntityLevel(Entity* entity);
 	std::vector<std::pair<Entity*, Entity::SURFACE_LEVEL>> entitiesToAdd_;

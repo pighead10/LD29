@@ -18,7 +18,8 @@ public:
 	enum ENTITY_TYPE{
 		ENTITY_PLAYER,
 		ENTITY_OTHER,
-		ENTITY_HOLE
+		ENTITY_HOLE,
+		ENTITY_SPRING
 	};
 
 	virtual void update(double frameTime);
@@ -37,6 +38,7 @@ public:
 	virtual void changeWeapon(Weapon* weapon);
 	virtual void changeHealth(int health);
 	TileManager* getParent() const{ return parent_; }
+	int getRadius() const{ return radius_; }
 protected:
 	void checkStatus();
 	int health_;
