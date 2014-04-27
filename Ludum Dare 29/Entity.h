@@ -22,6 +22,12 @@ public:
 		ENTITY_SPRING
 	};
 
+	enum STATE{
+		spinning,
+		walking,
+		waiting
+	};
+
 	virtual void update(double frameTime);
 	virtual void render(sf::RenderTarget* renderTarget);
 	virtual void gotoTile(const sfld::Vector2i& tilePosition);
@@ -39,7 +45,11 @@ public:
 	virtual void changeHealth(int health);
 	TileManager* getParent() const{ return parent_; }
 	int getRadius() const{ return radius_; }
+	STATE state;
 protected:
+
+
+
 	void checkStatus();
 	int health_;
 	ENTITY_TYPE type_;
